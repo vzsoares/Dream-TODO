@@ -20,8 +20,10 @@
       {% block title %}{{ section.title|default:"Dream TODO" }}{% endblock %}
     </title>
   </head>
-  <body>
-    {% block content %} {% endblock %}
+  <body style="display: flex; min-height: 100vh; flex-direction: column">
+    {% include 'components/navbar.html' %}
+    <main style="flex-grow: 1">{% block content %} {% endblock %}</main>
+    {% include 'components/footer.html' %}
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
     {% block script %}{% endblock %}
   </body>
