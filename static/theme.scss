@@ -94,7 +94,10 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(2px 4px 4px black);
+  filter: drop-shadow(2px 2px 2px black);
+}
+#toggle{
+    cursor: pointer;
 }
 
 @import "./bootstrap/bootstrap";
