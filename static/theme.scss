@@ -1,11 +1,58 @@
 // TODO check if js is needed
-$primary: rgb(204, 226, 4);
+// $primary: rgb(204, 226, 4);
+
+:root {
+  --gray0: #f8f8f8;
+  --gray1: #dbe1e8;
+  --gray2: #b2becd;
+  --gray3: #6c7983;
+  --gray4: #454e56;
+  --gray5: #2a2e35;
+  --gray6: #12181b;
+  --blue: #23a6d5;
+  --blue-1: #23d5ab;
+  --purple: #e73c7e;
+  --yellow: #fff565;
+  --orange: #ee7752;
+  --hero-text: linear-gradient(
+    45deg,
+    var(--orange),
+    var(--purple),
+    var(--blue),
+    var(--blue-1)
+  );
+}
+
+.light {
+  --bg: var(--gray0);
+  --text: var(--gray6);
+  --blur-box: rgb(255 255 255 / 30%);
+  --bg-main: linear-gradient(
+    -45deg,
+    var(--orange),
+    var(--purple),
+    var(--blue),
+    var(--blue-1)
+  );
+}
+
+.dark {
+  --bg: var(--gray5);
+  --text: var(--gray0);
+  --blur-box: rgba(0, 0, 0, 0.3);
+  --bg-main: linear-gradient(-45deg, #5a1700, #4e001e, #002c3c, #003b2d);
+}
 
 body {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background: var(--bg-main);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   height: 100vh;
+  transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+}
+.text {
+  color: var(--text);
+  filter: brightness(1);
 }
 
 @keyframes gradient {
@@ -31,21 +78,19 @@ body {
   overflow: hidden;
 }
 
-.blurred-box:after {
+.blurred-box:before {
   content: "";
   background: inherit;
   position: absolute;
   left: -25px;
-  left: position;
   right: 0;
   top: -25px;
-  top: position;
   bottom: 0;
-  box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 0 0 200px var(--blur-box);
 }
 .hero-msg {
   animation: gradient 15s ease infinite;
-  background: linear-gradient(-45deg, #23d5ab, #23a6d5, #e73c7e, #ee7752);
+  background: var(--hero-text);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
