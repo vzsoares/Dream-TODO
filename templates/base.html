@@ -33,11 +33,34 @@
       {% block title %}{{ section.title|default:"Dream TODO" }}{% endblock %}
     </title>
   </head>
-  <body style="display: flex; min-height: 100vh; flex-direction: column" class='dark'>
+  <body
+    style="display: flex; min-height: 100vh; flex-direction: column"
+    class=""
+  >
     {% include 'components/navbar.html' %}
     <main style="flex-grow: 1">{% block content %} {% endblock %}</main>
     {% include 'components/footer.html' %}
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
     {% block script %}{% endblock %}
+    <script type="text/javascript">
+      $(function () {
+        const body = $("body");
+        let theme = localStorage.getItem("theme");
+        const toggleTheme = $("#toggle");
+        console.log(theme);
+        if (!theme) {
+          localStorage.setItem("theme", "light");
+          theme = "light";
+        }
+        if (theme) {
+          body.addClass(theme);
+        }
+        toggleTheme.click(() => {
+          body.toggleClass("light dark");
+          theme = theme === "light" ? "dark" : "light";
+          localStorage.setItem("theme", theme);
+        });
+      });
+    </script>
   </body>
 </html>
