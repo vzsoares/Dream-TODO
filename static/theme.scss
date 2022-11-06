@@ -90,14 +90,16 @@ body {
 }
 .hero-msg {
   animation: gradient 15s ease infinite;
-  background: var(--hero-text);
+  background: rgba(255, 255, 255, 0.7);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(2px 2px 2px black);
 }
 #toggle{
     cursor: pointer;
+}
+#loggin{
+  cursor: pointer;
 }
 
 @import "./bootstrap/bootstrap";
