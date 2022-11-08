@@ -1,13 +1,10 @@
 <nav
-  style="
-    display: flex;
-    justify-content: space-between;
-    padding: 2rem;
-    align-items: baseline;
-  "
-  class="container"
+  style="display: flex; justify-content: space-between; align-items: baseline"
+  class="container py-4"
 >
-  <p class="hero-msg fs-1 fw-bold" style="margin: 0">Dream TODO</p>
+  <a href="/" class='text-decoration-none'>
+    <p class="hero-msg fs-1 fw-bold" style="margin: 0">Dream TODO</p>
+  </a>
   <div style="display: flex; gap: 1rem">
     <div tabindex="1" class="has-dropdown">
       <span style="font-size: calc(2rem + 1.5vw)" id="loggin">
@@ -17,9 +14,12 @@
       </span>
       <div id="dropdown">
         <div class="blurred-box">
-          {% comment %} TODO {% endcomment %}
-          {% if not logged %}
-          <p class="text fs-5 fw-bold py-2 px-4 m-0 my-dropdown-item">Login</p>
+          {% comment %} TODO {% endcomment %} {% if not logged %}
+          <a href="/login" class='text-decoration-none'>
+            <p class="text fs-5 fw-bold py-2 px-4 m-0 my-dropdown-item">
+              Login
+            </p>
+          </a>
           <p class="text fs-5 fw-bold py-2 px-4 m-0 my-dropdown-item">
             Register
           </p>
