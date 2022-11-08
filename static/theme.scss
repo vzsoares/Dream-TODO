@@ -69,10 +69,10 @@ body {
 
 .blurred-box {
   position: relative;
-  width: 250px;
-  height: 350px;
-  top: calc(50% - 175px);
-  left: calc(50% - 125px);
+  // width: 250px;
+  // height: 350px;
+  // top: calc(50% - 175px);
+  // left: calc(50% - 125px);
   background: inherit;
   border-radius: 2px;
   overflow: hidden;
@@ -82,10 +82,10 @@ body {
   content: "";
   background: inherit;
   position: absolute;
-  left: -25px;
-  right: 0;
-  top: -25px;
   bottom: 0;
+  right: 0;
+  left: -25px;
+  top: -25px;
   box-shadow: inset 0 0 0 200px var(--blur-box);
 }
 .hero-msg {
@@ -95,11 +95,28 @@ body {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-#toggle{
-    cursor: pointer;
-}
-#loggin{
+#toggle {
   cursor: pointer;
+}
+#loggin {
+  cursor: pointer;
+}
+#dropdown {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transform: translateX(-50%);
+}
+.has-dropdown:focus-within #dropdown {
+  opacity: 1;
+  pointer-events: auto;
+}
+.my-dropdown-item {
+  cursor: pointer;
+}
+.my-dropdown-item:hover {
+  transform: scale(1.2);
 }
 
 @import "./bootstrap/bootstrap";
