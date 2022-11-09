@@ -85,6 +85,7 @@ body {
   bottom: 0;
   right: 0;
   left: -25px;
+  z-index: -1;
   top: -25px;
   box-shadow: inset 0 0 0 100vw var(--blur-box);
 }
