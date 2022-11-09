@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'compressor',
     'pages',
     'todo',
+    'members',
 ]
 
 MIDDLEWARE = [
