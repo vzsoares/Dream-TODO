@@ -34,6 +34,7 @@ $primary: rgba(255, 255, 255, 0.8);
     var(--blue),
     var(--blue-1)
   );
+  --warn: #d5d5d5;
 }
 
 .dark {
@@ -41,6 +42,7 @@ $primary: rgba(255, 255, 255, 0.8);
   --text: var(--gray0);
   --blur-box: rgba(0, 0, 0, 0.3);
   --bg-main: linear-gradient(-45deg, #5a1700, #4e001e, #002c3c, #003b2d);
+  --warn: #222;
 }
 
 body {

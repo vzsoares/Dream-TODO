@@ -43,19 +43,29 @@
   >
     {% include 'components/navbar.html' %}
     <main style="flex-grow: 1">
-      <!--TODO beutify message-->
       {% if messages %} {% for message in messages %}
       <div
         class="alert alert-warning alert-dismissible fade show container"
         role="alert"
+        style="background-color: var(--warn); border-color: #664d0300"
       >
-        {{message}}
+        <div class="text">{{ message }}</div>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="alert"
           aria-label="Close"
-        ></button>
+        >
+          <div
+            style="
+              background-color: var(--text);
+              width: 25px;
+              height: 25px;
+              border-radius: 50px;
+              transform: translate(-5px, -5px);
+            "
+          ></div>
+        </button>
       </div>
       {% endfor %} {% endif %}{% block content %} {% endblock %}
     </main>

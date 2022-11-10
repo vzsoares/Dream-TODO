@@ -9,5 +9,4 @@ def home_view(request, *args, **kwargs):
 
 
 def login_view(request, *args, **kwargs):
-    # TODO move to members project
     return render(request, 'login.html', {})
