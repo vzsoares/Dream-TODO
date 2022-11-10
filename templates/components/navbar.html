@@ -24,7 +24,11 @@
             Register
           </p>
           {% else %}
-          <p class="text fs-5 fw-bold py-2 px-4 m-0 my-dropdown-item">Logout</p>
+          <a href="{% url 'logout' %}" class="text-decoration-none">
+            <p class="text fs-5 fw-bold py-2 px-4 m-0 my-dropdown-item">
+              Logout
+            </p>
+          </a>
           {% endif %}
         </div>
       </div>

@@ -12,9 +12,16 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, 'Logged in successfully!')
             return redirect('home')
         else:
-            messages.success(request, 'There was an error login in')
+            messages.success(request, 'There was an error login in!')
             return redirect('login')
     else:
         return render(request, 'login.html', {})
+
+
+def logout_user(request):
+    logout(request)
+    messages.success(request, 'You were logged out!')
+    return redirect('home')
