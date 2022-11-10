@@ -1,7 +1,9 @@
 {% extends 'base.html' %} {% block content %}
-<div class="blurred-box container" style="max-width: 400px">
-  <form action="" method="POST" style="z-index: 2">
-    <p class="text">LOGIN Memberas</p>
+<div
+  class="blurred-box container py-4 px-2"
+  style="max-width: 400px; margin-top: 10vh"
+>
+  <form action="" method="POST" class="d-flex flex-column" style="z-index: 2">
     {% csrf_token %}
     <!--TODO beutify form-->
     <div class="mb-3">
@@ -12,16 +14,22 @@
         name="username"
         aria-describedby="emailHelp"
       />
-      <div id="emailHelp" class="form-text">
-        We'll never share your email with anyone else.
-      </div>
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
       <input type="password" class="form-control" name="password" />
     </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="d-flex align-items-center">
+      <div id="emailHelp" class="form-text">
+        <p class="text m-0">
+          Do not have an account?
+          <span><a href="TODO" class="text"> Create </a></span>
+        </p>
+      </div>
+      <button type="submit" class="btn btn-primary" style="margin-left: auto">
+        Submit
+      </button>
+    </div>
   </form>
 </div>
 
