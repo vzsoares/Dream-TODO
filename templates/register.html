@@ -3,8 +3,15 @@
   class="blurred-box container py-4 px-2"
   style="max-width: 400px; margin-top: 10vh"
 >
-  <form action="" method="POST" class="d-flex flex-column" style="z-index: 2">
-    {% csrf_token %}
+  <form
+    action="{% url 'register' %}"
+    method="POST"
+    class="d-flex flex-column"
+    style="z-index: 2"
+  >
+    {% csrf_token %} {% if form.errors %}
+    <p>error</p>
+    {% endif %} {{ form.as_p }} {% comment %}
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
       <input
@@ -18,15 +25,16 @@
       <label for="password" class="form-label">Password</label>
       <input type="password" class="form-control" name="password" />
     </div>
+    {% endcomment %}
     <div class="d-flex align-items-center">
       <div id="emailHelp" class="form-text">
         <p class="text m-0">
-          Do not have an account?
-          <span><a href="TODO" class="text"> Create </a></span>
+          Already have an account?
+          <span><a href="TODO" class="text"> Login </a></span>
         </p>
       </div>
       <button type="submit" class="btn btn-primary" style="margin-left: auto">
-        Login
+        Register
       </button>
     </div>
   </form>
