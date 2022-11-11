@@ -7,30 +7,35 @@
     action="{% url 'register' %}"
     method="POST"
     class="d-flex flex-column"
-    style="z-index: 2"
+    style="z-index: 2;margin-top:-1rem;"
   >
-    {% csrf_token %} {% if form.errors %}
-    <p>error</p>
-    {% endif %} {{ form.as_p }} {% comment %}
-    <div class="mb-3">
-      <label for="username" class="form-label">Username</label>
-      <input
-        type="text"
-        class="form-control"
-        name="username"
-        aria-describedby="emailHelp"
-      />
-    </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" name="password" />
-    </div>
-    {% endcomment %}
-    <div class="d-flex align-items-center">
+    {% csrf_token %} {% for field in form %}
+
+    <label
+      class="form-label text"
+      style="margin-top: 1rem"
+      for="{{ field.auto_id }}"
+      >{{ field.label }}</label
+    >
+    {{ field }} {% if field.errors %} {% for error in field.errors %}
+    <p
+      style="
+        font-size: 0.75rem;
+        padding: 0.5rem;
+        width: 75%;
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+      "
+      class="error alert alert-danger"
+    >
+      {{ error }}
+    </p>
+    {% endfor %} {% endif %} {% endfor %}
+    <div class="d-flex align-items-center mt-3">
       <div id="emailHelp" class="form-text">
         <p class="text m-0">
           Already have an account?
-          <span><a href="TODO" class="text"> Login </a></span>
+          <span><a href="{% url 'login' %}" class="text"> Login </a></span>
         </p>
       </div>
       <button type="submit" class="btn btn-primary" style="margin-left: auto">
