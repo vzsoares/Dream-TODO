@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 <div class="blurred-box container">
   <div class="container todos-cotainer">
-    <p class="fs-2 text">Todo 1</p>
+    {% include 'components/todoItem.html' %}
     <p class="fs-2 text">Todo 2</p>
     <p class="fs-2 text">Todo 3</p>
     <p class="fs-2 text">Todo 4</p>
