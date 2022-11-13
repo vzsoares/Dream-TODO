@@ -1,12 +1,24 @@
 {% extends 'base.html' %} {% block content %}
-<div class="blurred-box container">
-  <div class="container todos-cotainer">
+<div class="blurred-box container" style='max-width: 600px;'>
+  <div class="container todos-cotainer d-flex flex-column gap-5 py-2">
+    {% include 'components/todoInput.html' %} 
+    {% comment %} {% endcomment %} 
     {% include 'components/todoItem.html' %}
-    <p class="fs-2 text">Todo 2</p>
-    <p class="fs-2 text">Todo 3</p>
-    <p class="fs-2 text">Todo 4</p>
-    <p class="fs-2 text">Todo 5</p>
-    <p class="fs-2 text">Todo 6</p>
+    {% include 'components/todoItem.html' %}
+    {% include 'components/todoItem.html' %}
+    {% include 'components/todoItem.html' %}
+    {% include 'components/todoItem.html' %}
+    {% include 'components/todoItem.html' %}
+    {% include 'components/todoItem.html' %}
+    {% include 'components/todoItem.html' %}
+    {% include 'components/todoItem.html' %}
+    {% include 'components/todoItem.html' %}
+    {% include 'components/todoItem.html' %}
+    {% include 'components/todoItem.html' %}
+    {% include 'components/todoItem.html' %}
+    {% include 'components/todoItem.html' %}
+    {% include 'components/todoItem.html' %}
+    
   </div>
 </div>
 {% endblock %} {% block script %}
