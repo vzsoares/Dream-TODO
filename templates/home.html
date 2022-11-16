@@ -1,30 +1,49 @@
 {% extends 'base.html' %} {% block content %}
-<div class="blurred-box container" style='max-width: 600px;'>
+<div class="blurred-box container" style="max-width: 600px; min-height: 400px">
   <div class="container todos-cotainer d-flex flex-column gap-5 py-2">
-    {% include 'components/todoInput.html' %} 
-    {% comment %} {% endcomment %} 
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    {% include 'components/todoItem.html' %}
-    
+    {% include 'components/todoInput.html' %}
+    <div id="todos-container"></div>
   </div>
 </div>
 {% endblock %} {% block script %}
 <script type="text/javascript">
   $(function () {
-    // jQuery methods go here...
+    let mockList = [
+      {
+        title: "titleTXT",
+        description: "descriptionTXT",
+        done: "boolean",
+      },
+      {
+        title: "titleTXT",
+        description: "descriptionTXT",
+        done: "boolean",
+      },
+      {
+        title: "titleTXT",
+        description: "descriptionTXT",
+        done: "boolean",
+      },
+      {
+        title: "titleTXT",
+        description: "descriptionTXT",
+        done: "boolean",
+      },
+    ];
+    const todos_container = $("#todos-container");
+    const add_todo = $("#add-todo");
+    console.log(add_todo);
+
+    createList();
+
+    function createList() {
+      [...mockList].map((e, i) => {
+        const listItem = document.createElement("div");
+        listItem.setAttribute("data-index", index);
+
+        listItem.innerHTML = ``;
+      });
+    }
   });
 </script>
 {% endblock %}

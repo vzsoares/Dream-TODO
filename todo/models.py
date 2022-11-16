@@ -13,5 +13,5 @@ def List():
     }
     user = {
         'id': 'id references user ID',
-        'todos': 'list'
+        'todos': 'json.stringfy(list)'
     }
