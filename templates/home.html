@@ -41,7 +41,7 @@
 
         listItem.innerHTML = `<div
         style="padding: 0.25rem; max-width: 400px; margin: 0 auto"
-        class="d-flex align-items-center gap-3"
+        class="d-flex align-items-center gap-3 draggable" draggable="true"
       >
         <div style="width: 3rem">
           <div style="cursor: pointer">
@@ -90,6 +90,21 @@
 
         listItems.push(listItem);
         todos_container.append(listItem);
+      });
+      addEventListeners();
+    }
+    function addEventListeners() {
+      const draggables = $(".draggable");
+      const draggaListItem = $("#todos-container .draggable");
+
+      draggables.each((draggable) => {
+        draggable.addEventListener("dragstart", dragStart);
+      });
+      draggaListItem.forEach((item) => {
+        item.addEventListener("dragover", dragOver);
+        item.addEventListener("drop", dragDrop);
+        item.addEventListener("dragenter", dragEnter);
+        item.addEventListener("dragleave", dragLeave);
       });
     }
   });
