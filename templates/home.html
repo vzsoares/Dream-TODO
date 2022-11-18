@@ -29,8 +29,7 @@
     const todos_container = $("#todos-container");
     const add_todo = $("#add-todo");
     let listItems = [];
-
-    console.log(listItems);
+    let dragStartIndex;
 
     createList();
 
@@ -38,10 +37,11 @@
       [...mockList].map((e, i) => {
         const listItem = document.createElement("div");
         listItem.setAttribute("data-index", i);
+        listItem.classList.add("index-container");
 
         listItem.innerHTML = `<div
         style="padding: 0.25rem; max-width: 400px; margin: 0 auto"
-        class="d-flex align-items-center gap-3 draggable" draggable="true"
+        class="d-flex align-items-center gap-3 draggable" draggable="true" 
       >
         <div style="width: 3rem">
           <div style="cursor: pointer">
@@ -93,11 +93,42 @@
       });
       addEventListeners();
     }
-    function addEventListeners() {
-      const draggables = $(".draggable");
-      const draggaListItem = $("#todos-container .draggable");
 
-      draggables.each((draggable) => {
+    function dragStart() {
+      dragStartIndex =
+        +this.closest(".index-container").getAttribute("data-index");
+    }
+    function dragEnter() {
+      this.classList.add("over");
+    }
+    function dragLeave() {
+      this.classList.remove("over");
+    }
+    function dragOver(e) {
+      this.classList.add("over");
+      e.preventDefault();
+    }
+    function dragDrop() {
+      const dragEndIndex = +this.getAttribute("data-index");
+      swapItems(dragStartIndex, dragEndIndex);
+
+      this.classList.remove("over");
+    }
+
+    function swapItems(fromIndex, toIndex) {
+      const itemOne = listItems[fromIndex].querySelector(".draggable");
+      const itemTwo = listItems[toIndex].querySelector(".draggable");
+
+      listItems[fromIndex].appendChild(itemTwo);
+      listItems[toIndex].appendChild(itemOne);
+    }
+    function addEventListeners() {
+      const draggables = document.querySelectorAll(".draggable");
+      const draggaListItem = document.querySelectorAll(
+        "#todos-container .index-container"
+      );
+
+      draggables.forEach((draggable) => {
         draggable.addEventListener("dragstart", dragStart);
       });
       draggaListItem.forEach((item) => {

@@ -120,6 +120,10 @@ body {
 .my-dropdown-item:hover {
   transform: scale(1.2);
 }
+.over {
+  filter: drop-shadow(2px 4px 6px black);
+  border: 1px dashed $primary;
+}
 
 $form-check-input-checked-color: #e73c7e;
 
