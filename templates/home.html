@@ -137,6 +137,20 @@
         item.addEventListener("drop", dragDrop);
         item.addEventListener("dragenter", dragEnter);
         item.addEventListener("dragleave", dragLeave);
+        item.addEventListener("touchmove", (e) => {
+          e.preventDefault(); // prevend scroll
+          const x = e.changedTouches[0].pageX;
+          const y = e.changedTouches[0].pageY;
+          console.log(x, y);
+          // TODO https://stackoverflow.com/questions/46263622/touchend-event-not-working-correctly-with-touches-array
+          const end = document.elementsFromPoint(x, y);
+          // end === all elements on touch
+          if (end.find((e) => e.className === "index-container")) {
+            // VALID DROP
+            console.log("bahia");
+          }
+          console.log(end);
+        });
       });
     }
   });
