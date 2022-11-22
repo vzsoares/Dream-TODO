@@ -41,10 +41,10 @@
 
         listItem.innerHTML = `<div
         style="padding: 0.25rem; max-width: 400px; margin: 0 auto"
-        class="d-flex align-items-center gap-3 draggable" draggable="true" 
+        class="d-flex align-items-center gap-3 draggable" draggable="true"
       >
         <div style="width: 3rem">
-          <div style="cursor: pointer">
+          <div style="cursor: pointer" class="todo-bars">
             <span style="font-size: calc(1.25rem + 1.5vw)">
               <span style="color: rgb(255 255 255 / 50%)">
                 <i class="fa-solid fa-bars"></i>
@@ -60,14 +60,14 @@
           "
         >
           <textarea
-            class="form-control my-todo-input"
+            class="form-control my-todo-input todo-input"
             style="max-height: 100px"
           >${e.description}</textarea>
         </div>
         <div class="ms-auto d-flex align-items-center gap-3">
           <div>
             <input
-              class="form-check-input"
+              class="form-check-input todo-checkbox"
               ${e.checked === "true" && "checked"}
               type="checkbox"
               value=""
@@ -78,7 +78,7 @@
               "
             />
           </div>
-          <div style="cursor: pointer">
+          <div style="cursor: pointer" class="todo-trash">
             <span style="font-size: calc(1.25rem + 1.5vw)">
               <span style="color: rgb(255 255 255 / 50%)">
                 <i class="fa-solid fa-trash"></i>
@@ -115,6 +115,61 @@
       this.classList.remove("over");
     }
 
+    var mouseTimer;
+    var draggin;
+    var pressStartIndex;
+    var selectedItem;
+    var endItem;
+    function touchStart(e) {
+      e.preventDefault();
+      touchCancel();
+      mouseTimer = window.setTimeout(() => touchStartDrag(e), 500);
+    }
+    function touchMove(e) {
+      e.preventDefault(); // prevend scroll
+      if (!draggin === true || pressStartIndex < 0 || !selectedItem) {
+        return touchCancel();
+      }
+      selectedItem.style.position = "fixed";
+      const x = e.changedTouches[0].pageX;
+      const y = e.changedTouches[0].pageY;
+      selectedItem.style.top = y + "px";
+      selectedItem.style.left = x + "px";
+      // end === all elements on touch
+      const end = document.elementsFromPoint(x, y);
+      const dropzone = end.filter((i) => i.className === "index-container");
+      if (dropzone.length > 1) {
+        endItem = dropzone[1];
+      } else endItem = undefined;
+    }
+    function touchEnd(e) {
+      if (endItem && selectedItem) {
+        let startIndex = selectedItem.getAttribute("data-index");
+        let endIndex = endItem.getAttribute("data-index");
+        swapItems(startIndex, endIndex);
+      }
+      touchCancel();
+    }
+    function touchStartDrag(e) {
+      draggin = true;
+      const initialTarget = e.target.closest(".index-container");
+      const initialIndex = initialTarget.getAttribute("data-index");
+      pressStartIndex = initialIndex;
+      selectedItem = initialTarget;
+      initialTarget.style.transform = "scale(1.2)";
+    }
+    function touchCancel() {
+      if (selectedItem) {
+        selectedItem.style.transform = "scale(1)";
+        selectedItem.style.position = "initial";
+      }
+      if (mouseTimer) window.clearTimeout(mouseTimer);
+      draggin = false;
+      endItem = undefined;
+      selectedItem = undefined;
+      pressStartIndex = undefined;
+    }
+
     function swapItems(fromIndex, toIndex) {
       const itemOne = listItems[fromIndex].querySelector(".draggable");
       const itemTwo = listItems[toIndex].querySelector(".draggable");
@@ -122,11 +177,13 @@
       listItems[fromIndex].appendChild(itemTwo);
       listItems[toIndex].appendChild(itemOne);
     }
-    // TODO touch events
     function addEventListeners() {
       const draggables = document.querySelectorAll(".draggable");
       const draggaListItem = document.querySelectorAll(
         "#todos-container .index-container"
+      );
+      const touchListItems = document.querySelectorAll(
+        "#todos-container .index-container .todo-bars"
       );
 
       draggables.forEach((draggable) => {
@@ -137,20 +194,11 @@
         item.addEventListener("drop", dragDrop);
         item.addEventListener("dragenter", dragEnter);
         item.addEventListener("dragleave", dragLeave);
-        item.addEventListener("touchmove", (e) => {
-          e.preventDefault(); // prevend scroll
-          const x = e.changedTouches[0].pageX;
-          const y = e.changedTouches[0].pageY;
-          console.log(x, y);
-          // TODO https://stackoverflow.com/questions/46263622/touchend-event-not-working-correctly-with-touches-array
-          const end = document.elementsFromPoint(x, y);
-          // end === all elements on touch
-          if (end.find((e) => e.className === "index-container")) {
-            // VALID DROP
-            console.log("bahia");
-          }
-          console.log(end);
-        });
+      });
+      touchListItems.forEach((icon) => {
+        icon.addEventListener("touchstart", touchStart);
+        icon.addEventListener("touchmove", touchMove);
+        icon.addEventListener("touchend", touchEnd);
       });
     }
   });
