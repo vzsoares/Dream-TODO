@@ -4,6 +4,7 @@
     {% include 'components/todoInput.html' %}
     <div id="todos-container" class="d-flex flex-column gap-5 pt-5 pb-2"></div>
   </div>
+  <button id="export-test">clickme</button>
 </div>
 {% endblock %} {% block script %}
 <script type="text/javascript">
@@ -177,6 +178,16 @@
       listItems[fromIndex].appendChild(itemTwo);
       listItems[toIndex].appendChild(itemOne);
     }
+
+    function processResult(nodeList) {
+      return nodeList.map((e) => {
+        return {
+          description: e.querySelector(".todo-input").value,
+          checked: e.querySelector(".todo-checkbox").checked,
+        };
+      });
+    }
+    $("#export-test").click(() => processResult(listItems));
     function addEventListeners() {
       const draggables = document.querySelectorAll(".draggable");
       const draggaListItem = document.querySelectorAll(
