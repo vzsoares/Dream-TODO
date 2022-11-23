@@ -9,6 +9,6 @@ from .models import UserTodo
 def getUserTodos(request):
     if request.user.is_authenticated:
         todos = UserTodo.objects.all().filter(owner__username='bob')
-        return JsonResponse({'todos': list(todos.values('todos'))})
+        return JsonResponse({'todos': list(todos.values('todos'))}, status=200)
     else:
-        return JsonResponse({})
+        return JsonResponse({}, status=400)
