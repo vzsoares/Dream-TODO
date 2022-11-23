@@ -12,3 +12,10 @@ def getUserTodos(request):
         return JsonResponse({'todos': list(todos.values('todos'))}, status=200)
     else:
         return JsonResponse({}, status=400)
+
+
+def updateTodos(request):
+    if request.method == "POST":
+        return JsonResponse({})
+    else:
+        return JsonResponse({})

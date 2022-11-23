@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from pages.views import home_view, login_view
-from todo.views import getUserTodos
+from todo.views import getUserTodos, updateTodos
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +25,6 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('members/', include('django.contrib.auth.urls')),
     path('members/', include('members.urls')),
-    path('getTodos/', getUserTodos, name='getTodos')
+    path('getTodos/', getUserTodos, name='getTodos'),
+    path('postTodos/', updateTodos, name='postTodos'),
 ]
