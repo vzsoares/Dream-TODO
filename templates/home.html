@@ -32,10 +32,10 @@
     let listItems = [];
     let dragStartIndex;
 
-    createList();
+    // createList();
 
-    function createList() {
-      [...mockList].map((e, i) => {
+    function createList(list) {
+      [...list].map((e, i) => {
         const listItem = document.createElement("div");
         listItem.setAttribute("data-index", i);
         listItem.classList.add("index-container");
@@ -212,6 +212,20 @@
         icon.addEventListener("touchend", touchEnd);
       });
     }
+
+    $.ajax({
+      type: "GET",
+      url: "{% url 'getTodos' %}",
+      success: function (response) {
+        //JSON.parse
+        // console.log(JSON.stringify());
+        const result = JSON.parse(response["todos"][0]["todos"]);
+        createList(result);
+      },
+      error: function (response) {
+        console.log(response);
+      },
+    });
   });
 </script>
 {% endblock %}
