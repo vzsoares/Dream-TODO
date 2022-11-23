@@ -5,6 +5,9 @@ from django.shortcuts import render
 
 
 def home_view(request, *args, **kwargs):
+    # sync localstorage items
+    # create table item
+    # send list via ajax
     return render(request, 'home.html', {})
 
 

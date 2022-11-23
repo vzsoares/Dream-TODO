@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class UserTodo(models.Model):
     owner = models.OneToOneField(
-        User, on_delete=models.DO_NOTHING, primary_key=True)
+        User, on_delete=models.DO_NOTHING, primary_key=True, unique=True)
     todos = models.TextField()
 
     def __str__(self):
