@@ -189,6 +189,7 @@
     }
     $("#export-test").click(() => {
       const toPost = JSON.stringify(processResult(listItems));
+      // const toPost = JSON.stringify(mockList)
       $.ajax({
         type: "POST",
         url: "{% url 'postTodos' %}",

@@ -8,7 +8,7 @@ from .models import UserTodo
 
 def getUserTodos(request):
     if request.user.is_authenticated:
-        todos = UserTodo.objects.all().filter(owner__username='bob')
+        todos = UserTodo.objects.all().filter(owner__username=request.user)
         return JsonResponse({'todos': list(todos.values('todos'))}, status=200)
     else:
         return JsonResponse({}, status=400)
@@ -16,9 +16,18 @@ def getUserTodos(request):
 
 def updateTodos(request):
     if request.method == "POST":
-        # TODO save to db
-        # TODO check if user is auth
-        print(request.POST['data'])
-        return JsonResponse({})
+        if request.user.is_authenticated:
+            data = request.POST['data']
+            prevTodo = UserTodo.objects.get(owner__username=request.user)
+
+            if not prevTodo:
+                newTodo = UserTodo(owner=request.user, todos=data)
+                newTodo.save()
+            else:
+                prevTodo.todos = data
+                prevTodo.save()
+            return JsonResponse({})
+        else:
+            return JsonResponse({}, status=400)
     else:
-        return JsonResponse({})
+        return JsonResponse({}, status=400)
