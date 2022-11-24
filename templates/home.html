@@ -187,7 +187,20 @@
         };
       });
     }
-    $("#export-test").click(() => processResult(listItems));
+    $("#export-test").click(() => {
+      const toPost = JSON.stringify(processResult(listItems));
+      $.ajax({
+        type: "POST",
+        url: "{% url 'postTodos' %}",
+        data: { data: toPost, csrfmiddlewaretoken: "{{ csrf_token }}" },
+        success: function (response) {
+          console.log(response);
+        },
+        error: function (response) {
+          console.log(response);
+        },
+      });
+    });
     function addEventListeners() {
       const draggables = document.querySelectorAll(".draggable");
       const draggaListItem = document.querySelectorAll(

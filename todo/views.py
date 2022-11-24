@@ -16,6 +16,9 @@ def getUserTodos(request):
 
 def updateTodos(request):
     if request.method == "POST":
+        # TODO save to db
+        # TODO check if user is auth
+        print(request.POST['data'])
         return JsonResponse({})
     else:
         return JsonResponse({})
