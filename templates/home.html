@@ -126,6 +126,7 @@
       touchCancel();
       mouseTimer = window.setTimeout(() => touchStartDrag(e), 500);
     }
+    // TODO fix buggy drag on mobile when vh > 100
     function touchMove(e) {
       e.preventDefault(); // prevend scroll
       if (!draggin === true || pressStartIndex < 0 || !selectedItem) {
@@ -213,7 +214,17 @@
       const currentList = processResult(listItems);
       const newList = [newTodoData, ...currentList];
       createList(newList);
-      $("#add-todo-input").val('')
+      $("#add-todo-input").val("");
+    });
+
+    $("#todos-container").on("click", ".todo-trash", (e) => {
+      const index = e.target
+        .closest(".index-container")
+        .getAttribute("data-index");
+
+      const newList = processResult(listItems);
+      newList.splice(index, 1);
+      createList(newList);
     });
 
     function addEventListeners() {
