@@ -32,9 +32,9 @@
     let listItems = [];
     let dragStartIndex;
 
-    // createList();
-
     function createList(list) {
+      listItems = [];
+      todos_container.html("");
       [...list].map((e, i) => {
         const listItem = document.createElement("div");
         listItem.setAttribute("data-index", i);
@@ -136,7 +136,7 @@
       const y = e.changedTouches[0].pageY;
       selectedItem.style.top = y + "px";
       selectedItem.style.left = x + "px";
-      // end === all elements on touch
+      // end === every elements on touch end
       const end = document.elementsFromPoint(x, y);
       const dropzone = end.filter((i) => i.className === "index-container");
       if (dropzone.length > 1) {
@@ -187,6 +187,7 @@
         };
       });
     }
+
     $("#export-test").click(() => {
       const toPost = JSON.stringify(processResult(listItems));
       // const toPost = JSON.stringify(mockList)
@@ -202,6 +203,19 @@
         },
       });
     });
+    $("#add-todo").click(() => {
+      const value = $("#add-todo-input").val();
+      const newTodoData = {
+        description: value,
+        checked: "false",
+      };
+      if (value.length < 1) return;
+      const currentList = processResult(listItems);
+      const newList = [newTodoData, ...currentList];
+      createList(newList);
+      $("#add-todo-input").val('')
+    });
+
     function addEventListeners() {
       const draggables = document.querySelectorAll(".draggable");
       const draggaListItem = document.querySelectorAll(
@@ -227,12 +241,11 @@
       });
     }
 
+    // Initial LOAD
     $.ajax({
       type: "GET",
       url: "{% url 'getTodos' %}",
       success: function (response) {
-        //JSON.parse
-        // console.log(JSON.stringify());
         const result = JSON.parse(response["todos"][0]["todos"]);
         createList(result);
       },
