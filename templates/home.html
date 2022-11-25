@@ -190,6 +190,7 @@
     }
 
     $("#export-test").click(() => {
+      // TODO turn this into function
       const toPost = JSON.stringify(processResult(listItems));
       // const toPost = JSON.stringify(mockList)
       $.ajax({
@@ -226,7 +227,24 @@
       newList.splice(index, 1);
       createList(newList);
     });
+    //
+    $(document).on(
+      "click drag touchmove",
+      debounce(() => {
+        console.log("sync me");
+      }, 500)
+    );
 
+    function debounce(fn, delay) {
+      let timeoutID;
+      return function (...args) {
+        if (timeoutID) clearTimeout(timeoutID);
+        timeoutID = setTimeout(() => {
+          fn(...args);
+        }, delay);
+      };
+    }
+    //
     function addEventListeners() {
       const draggables = document.querySelectorAll(".draggable");
       const draggaListItem = document.querySelectorAll(
