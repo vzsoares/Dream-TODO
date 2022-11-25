@@ -128,7 +128,7 @@
     }
     // TODO fix buggy drag on mobile when vh > 100
     function touchMove(e) {
-      e.preventDefault(); // prevend scroll
+      if (event.cancelable) event.preventDefault();
       if (!draggin === true || pressStartIndex < 0 || !selectedItem) {
         return touchCancel();
       }
