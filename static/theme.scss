@@ -127,6 +127,20 @@ body {
 
 $form-check-input-checked-color: #e73c7e;
 
+#loader {
+  position: absolute;
+  right: 0.5rem;
+  padding-top: 0.5rem;
+  color: var(--purple);
+}
+
+.hidden {
+  visibility: hidden;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
 @import "./bootstrap/bootstrap";
 .my-todo-input {
   background-color: rgba(255, 255, 255, 0);

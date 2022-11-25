@@ -1,10 +1,12 @@
 {% extends 'base.html' %} {% block content %}
 <div class="blurred-box container" style="max-width: 600px; min-height: 400px">
+  <div id="loader" class="hidden">
+    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+  </div>
   <div class="container todos-cotainer py-2">
     {% include 'components/todoInput.html' %}
     <div id="todos-container" class="d-flex flex-column gap-5 pt-5 pb-2"></div>
   </div>
-  <button id="export-test">clickme</button>
 </div>
 {% endblock %} {% block script %}
 <script type="text/javascript">
@@ -189,22 +191,6 @@
       });
     }
 
-    $("#export-test").click(() => {
-      // TODO turn this into function
-      const toPost = JSON.stringify(processResult(listItems));
-      // const toPost = JSON.stringify(mockList)
-      $.ajax({
-        type: "POST",
-        url: "{% url 'postTodos' %}",
-        data: { data: toPost, csrfmiddlewaretoken: "{{ csrf_token }}" },
-        success: function (response) {
-          console.log(response);
-        },
-        error: function (response) {
-          console.log(response);
-        },
-      });
-    });
     $("#add-todo").click(() => {
       const value = $("#add-todo-input").val();
       const newTodoData = {
@@ -229,10 +215,10 @@
     });
     //
     $(document).on(
-      "click drag touchmove",
+      "click drag touchmove keydown",
       debounce(() => {
-        console.log("sync me");
-      }, 500)
+        syncData();
+      }, 1500)
     );
 
     function debounce(fn, delay) {
@@ -243,6 +229,29 @@
           fn(...args);
         }, delay);
       };
+    }
+    let referenceList;
+    function syncData() {
+      const toPost = JSON.stringify(processResult(listItems));
+      if (toPost === referenceList) return;
+      referenceList = toPost;
+      // const toPost = JSON.stringify(mockList)
+      $("#loader").removeClass("hidden");
+      $.ajax({
+        url: "{% url 'postTodos' %}",
+        type: "POST",
+        data: { data: toPost, csrfmiddlewaretoken: "{{ csrf_token }}" },
+        success: function (response) {
+          //console.log(response);
+        },
+        error: function (response) {
+          //console.log(response);
+        },
+        complete: (response) => {
+          //console.log(response);
+          $("#loader").addClass("hidden");
+        },
+      });
     }
     //
     function addEventListeners() {
