@@ -242,16 +242,21 @@
         type: "POST",
         data: { data: toPost, csrfmiddlewaretoken: "{{ csrf_token }}" },
         success: function (response) {
-          //console.log(response);
+          localSet("");
         },
         error: function (response) {
-          //console.log(response);
+          localSet(toPost);
         },
         complete: (response) => {
-          //console.log(response);
           $("#loader").addClass("hidden");
         },
       });
+    }
+    function localSet(stringObj) {
+      localStorage.setItem("todos", stringObj);
+    }
+    function localGet() {
+      return localStorage.getItem("todos");
     }
     //
     function addEventListeners() {
@@ -284,11 +289,17 @@
       type: "GET",
       url: "{% url 'getTodos' %}",
       success: function (response) {
-        const result = JSON.parse(response["todos"][0]["todos"]);
+        let result = JSON.parse(response["todos"][0]["todos"]);
+        const local = localGet("todos");
+        if (local) {
+          result = [...JSON.parse(local), ...result];
+          localSet("");
+        }
         createList(result);
       },
       error: function (response) {
-        console.log(response);
+        const result = localGet("todos");
+        if (result) createList(JSON.parse(result));
       },
     });
   });
