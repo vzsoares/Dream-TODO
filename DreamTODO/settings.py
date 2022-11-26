@@ -34,6 +34,7 @@ STATICFILES_DIRS = [
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# TODO fix on debug=false: - Css not loading
 DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['dreamtodo.up.railway.app', '127.0.0.1', ]
