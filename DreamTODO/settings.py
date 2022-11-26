@@ -34,12 +34,12 @@ STATICFILES_DIRS = [
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG',cast=bool)
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['dreamtodo.up.railway.app', '127.0.0.1', ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://django-server-production-d576.up.railway.app']
+    'https://dreamtodo.up.railway.app']
 
 
 # Application definition
