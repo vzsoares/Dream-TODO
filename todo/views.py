@@ -18,14 +18,13 @@ def updateTodos(request):
     if request.method == "POST":
         if request.user.is_authenticated:
             data = request.POST['data']
-            prevTodo = UserTodo.objects.get(owner__username=request.user)
-
-            if not prevTodo:
-                newTodo = UserTodo(owner=request.user, todos=data)
-                newTodo.save()
-            else:
+            try:
+                prevTodo = UserTodo.objects.get(owner__username=request.user)
                 prevTodo.todos = data
                 prevTodo.save()
+            except:
+                newTodo = UserTodo(owner=request.user, todos=data)
+                newTodo.save()
             return JsonResponse({})
         else:
             return JsonResponse({}, status=400)
