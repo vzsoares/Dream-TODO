@@ -118,59 +118,60 @@
       this.classList.remove("over");
     }
 
-    var mouseTimer;
-    var draggin;
-    var pressStartIndex;
-    var selectedItem;
-    var endItem;
+    let mouseTimer;
+    let draggin;
+    let pressStartIndex;
+    let toDisplayItem;
+    let endItem;
     function touchStart(e) {
       e.preventDefault();
       touchCancel();
       mouseTimer = window.setTimeout(() => touchStartDrag(e), 500);
     }
-    // TODO fix buggy drag on mobile when vh > 100
     function touchMove(e) {
       if (event.cancelable) event.preventDefault();
-      if (!draggin === true || pressStartIndex < 0 || !selectedItem) {
+      if (!draggin === true || pressStartIndex < 0 || !toDisplayItem) {
         return touchCancel();
       }
-      selectedItem.style.position = "fixed";
-      const x = e.changedTouches[0].pageX;
-      const y = e.changedTouches[0].pageY;
-      selectedItem.style.top = y + "px";
-      selectedItem.style.left = x + "px";
-      // end === every elements on touch end
-      const end = document.elementsFromPoint(x, y);
-      const dropzone = end.filter((i) => i.className === "index-container");
-      if (dropzone.length > 1) {
-        endItem = dropzone[1];
+      toDisplayItem.style.position = "fixed";
+      let x = e.changedTouches[0].clientX;
+      let y = e.changedTouches[0].clientY;
+      toDisplayItem.style.top = y + "px";
+      toDisplayItem.style.left = x + "px";
+      const touchedElements = document.elementsFromPoint(x, y);
+      const dropzoneItem = touchedElements.filter(
+        (i) => i.className === "index-container"
+      );
+      if (dropzoneItem.length > 1) {
+        endItem = dropzoneItem[1];
       } else endItem = undefined;
     }
     function touchEnd(e) {
-      if (endItem && selectedItem) {
-        let startIndex = selectedItem.getAttribute("data-index");
+      if (endItem && toDisplayItem) {
+        let startIndex = pressStartIndex;
         let endIndex = endItem.getAttribute("data-index");
         swapItems(startIndex, endIndex);
       }
       touchCancel();
     }
     function touchStartDrag(e) {
-      draggin = true;
       const initialTarget = e.target.closest(".index-container");
       const initialIndex = initialTarget.getAttribute("data-index");
       pressStartIndex = initialIndex;
-      selectedItem = initialTarget;
-      initialTarget.style.transform = "scale(1.2)";
+      draggin = true;
+
+      const dupe = $(initialTarget).clone();
+      dupe.css("position", "absolute");
+      dupe.css("transform", "scale(1.2)");
+      toDisplayItem = dupe.get(0);
+      $(initialTarget).append(dupe);
     }
     function touchCancel() {
-      if (selectedItem) {
-        selectedItem.style.transform = "scale(1)";
-        selectedItem.style.position = "initial";
-      }
       if (mouseTimer) window.clearTimeout(mouseTimer);
       draggin = false;
       endItem = undefined;
-      selectedItem = undefined;
+      if (toDisplayItem) toDisplayItem.remove();
+      toDisplayItem = undefined;
       pressStartIndex = undefined;
     }
 
