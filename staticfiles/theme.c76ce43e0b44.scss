@@ -1,0 +1,189 @@
+$primary: rgba(255, 255, 255, 0.8);
+
+:root {
+  --gray0: #f8f8f8;
+  --gray1: #dbe1e8;
+  --gray2: #b2becd;
+  --gray3: #6c7983;
+  --gray4: #454e56;
+  --gray5: #2a2e35;
+  --gray6: #12181b;
+  --blue: #23a6d5;
+  --blue-1: #23d5ab;
+  --purple: #e73c7e;
+  --yellow: #fff565;
+  --orange: #ee7752;
+  --hero-text: linear-gradient(
+    45deg,
+    var(--orange),
+    var(--purple),
+    var(--blue),
+    var(--blue-1)
+  );
+}
+
+.light {
+  --bg: var(--gray0);
+  --text: var(--gray6);
+  --blur-box: rgb(255 255 255 / 30%);
+  --bg-main: linear-gradient(
+    -45deg,
+    var(--orange),
+    var(--purple),
+    var(--blue),
+    var(--blue-1)
+  );
+  --warn: #d5d5d5;
+}
+
+.dark {
+  --bg: var(--gray5);
+  --text: var(--gray0);
+  --blur-box: rgba(0, 0, 0, 0.3);
+  --bg-main: linear-gradient(-45deg, #5a1700, #4e001e, #002c3c, #003b2d);
+  --warn: #222;
+}
+
+body {
+  background: var(--bg-main);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  height: 100vh;
+  transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+}
+.text {
+  color: var(--text);
+  filter: brightness(1);
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.blurred-box {
+  position: relative;
+  // width: 250px;
+  // height: 350px;
+  // top: calc(50% - 175px);
+  // left: calc(50% - 125px);
+  background: inherit;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.blurred-box:before {
+  content: "";
+  background: inherit;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: -25px;
+  z-index: -1;
+  top: -25px;
+  box-shadow: inset 0 0 0 100vw var(--blur-box);
+}
+.hero-msg {
+  animation: gradient 15s ease infinite;
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#toggle {
+  cursor: pointer;
+}
+#loggin {
+  cursor: pointer;
+}
+#dropdown {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transform: translateX(-50%);
+}
+.has-dropdown:focus-within #dropdown {
+  opacity: 1;
+  pointer-events: auto;
+}
+.my-dropdown-item {
+  cursor: pointer;
+}
+.my-dropdown-item:hover {
+  transform: scale(1.2);
+}
+.over {
+  filter: drop-shadow(2px 4px 6px black);
+  border: 1px dashed $primary;
+}
+
+$form-check-input-checked-color: #e73c7e;
+
+#loader {
+  position: absolute;
+  right: 0.5rem;
+  padding-top: 0.5rem;
+  color: var(--purple);
+}
+
+.hidden {
+  visibility: hidden;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+@import "./bootstrap/bootstrap";
+.my-todo-input {
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--text);
+  border: none;
+}
+.my-todo-input:focus {
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--text);
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+::-webkit-scrollbar-track {
+  background: #666666;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
