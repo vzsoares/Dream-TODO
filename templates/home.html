@@ -123,15 +123,27 @@
     let pressStartIndex;
     let toDisplayItem;
     let endItem;
+    let toleranceX;
+    let toleranceY;
+    const tolerance = 30;
     function touchStart(e) {
       e.preventDefault();
       touchCancel();
+      toleranceX = e.touches[0].clientX;
+      toleranceY = e.touches[0].clientY;
       mouseTimer = window.setTimeout(() => touchStartDrag(e), 500);
     }
     function touchMove(e) {
       if (event.cancelable) event.preventDefault();
+      let moveX = e.touches[0].clientX;
+      let moveY = e.touches[0].clientY;
+      let inToleranceX = Math.abs(toleranceX - moveX);
+      let inToleranceY = Math.abs(toleranceY - moveY);
+      if (inToleranceY > tolerance || inToleranceX > tolerance) {
+        if (!draggin) return touchCancel();
+      }
       if (!draggin === true || pressStartIndex < 0 || !toDisplayItem) {
-        return touchCancel();
+        return;
       }
       toDisplayItem.style.position = "fixed";
       let x = e.changedTouches[0].clientX;
@@ -173,6 +185,8 @@
       if (toDisplayItem) toDisplayItem.remove();
       toDisplayItem = undefined;
       pressStartIndex = undefined;
+      toleranceX = undefined;
+      toleranceY = undefined;
     }
 
     function swapItems(fromIndex, toIndex) {
