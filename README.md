@@ -19,8 +19,7 @@ Drag and drop to reorder your TODOs, keeping what you need the way you want.
 
 No need to save, it auto syncs.
 
-<img src='static/sync_loader_gif.gif
-' height='400px'>
+<img src='static/sync_loader_gif.gif' height='400px'>
 
 ---
 
@@ -51,7 +50,7 @@ No need to save, it auto syncs.
 ##### Extra tools:
 
 - Font Awesome
-- [Favicon.io](favicon.io)
+- Favicon.io
 
 ##### deployed via: https://railway.app/
 
