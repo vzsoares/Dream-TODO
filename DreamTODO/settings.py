@@ -93,6 +93,7 @@ WSGI_APPLICATION = 'DreamTODO.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# Use this config to develop locally
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',

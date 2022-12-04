@@ -77,3 +77,42 @@ Quite easy to do thanks to the simple layout, bootstrap and flexbox literally sa
 ##### Light/Dark mode:
 
 The dark mode trick was made by using vars as values to all classes and changing the vars values by setting a class that redefines it in the body element.
+
+### Future Improvements:
+
+As straight forward a TODO list project can look like, i think it definitely has room for soo much great ideas and techs, so besides the ones i've implemented in this one im gonna list possible improvements for this project:
+
+- Possibility to store
+
+  - images
+  - drawings
+  - audio
+  - files
+
+- hot updates
+
+  - e.g. example if you connected in two devices and alter something it auto updates in the other device
+
+- offline support
+
+- date and time integration
+
+  - e.g. having TODO's in a calendar
+
+- push notifications
+- TODO's templates for complex tasks
+- integration with other apps
+- trash for viewing/retrieving recently deleted tasks
+- better user management
+  - e.g.
+    - change password
+    - two factor authentication
+    - email integration
+    - account recovering
+
+### How to run this project:
+
+In the `pyvenv.cfg` file there's the requirements to create a virtual environment to run the project, so in this case you need to create a virtual environment with python version = 3.10.7 and virtualenv version = 20.16.5.
+Then once in your virtual environment you need to install the `requirements.txt` dependencies with the command `$ pip3 install -r requirements.txt`.
+You may as well change de DATABASES settings at DreamTODO/settings.py and also create a `.env` file following the .env.example.
+If all went well it's now possible to start the django dev server with `$ python manage.py runserver`.
